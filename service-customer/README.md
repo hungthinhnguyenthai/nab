@@ -32,5 +32,6 @@ Folder Structure Conventions
     
 ## Database
 
+![db](db.png)
 ### Data Migration: liquibase
 TBD
