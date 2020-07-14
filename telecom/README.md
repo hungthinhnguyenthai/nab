@@ -34,4 +34,6 @@ Folder Structure Conventions
     └── ...
     
 ### Voucher Code Retrieval Process
-To make it simple, this service allow client have life-time access (do not need a access_token)    
+To make it simple, this service allow client have life-time access (do not need a access_token)  
+
+![workflow](workflow.png)
