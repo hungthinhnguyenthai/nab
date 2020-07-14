@@ -35,6 +35,7 @@ Folder Structure Conventions
 To deal with networking scenarios, I came up with an solution
 
 
+![workflow](workflow.png)
 
 Because of notification-service is not developed, so I change my approach - calling customer-service for updating delayed voucher, user can retrieve it latter
 
