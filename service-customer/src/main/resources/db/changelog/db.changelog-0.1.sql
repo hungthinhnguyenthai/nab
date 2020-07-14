@@ -6,3 +6,6 @@ CREATE TABLE service_customer.voucher (id INT NOT NULL AUTO_INCREMENT,customer V
 
 --changeset thinhnguyen:2
 ALTER TABLE service_customer.voucher ADD COLUMN completed TINYINT(1) NULL
+
+--changeset thinhnguyen:3
+ALTER TABLE service_customer.customer ADD COLUMN secret_code VARCHAR(50) NULL;

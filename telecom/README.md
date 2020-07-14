@@ -2,7 +2,9 @@
 
 Simple project for demonstrating the communication between NAB system and another.
 
-Client need register with this system.   
+First client have to register in order to exchange client_id, client_secret and RSA key pair.
+
+Client should bypass their client_id and client_secret (using HmacSHA256) for authentication and use Pub key for encryption the response token.  
 ## Requirement
 You need to install :
 - JDK 8
@@ -30,3 +32,6 @@ Folder Structure Conventions
     │   ├── respository     # Database respository
     │   └── service         # Business Logic 
     └── ...
+    
+### Voucher Code Retrieval Process
+To make it simple, this service allow client have life-time access (do not need a access_token)    
