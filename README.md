@@ -24,7 +24,11 @@ Component
     ├── telecom                 # Thirdparty  
     ├── build                   #   
     └── ...
-       
+
+Workflow
+============================
+![workflow](service-prepaid-data/workflow.png)
+
 ## Run
 In /build folder run in order:
 
