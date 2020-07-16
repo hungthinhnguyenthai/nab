@@ -3,6 +3,7 @@ package com.thinhnguyen.nab.service.customer.service;
 import com.thinhnguyen.nab.service.customer.client.PrepaidDataServiceClient;
 import com.thinhnguyen.nab.service.customer.domain.Voucher;
 import com.thinhnguyen.nab.service.customer.dto.VoucherDto;
+import com.thinhnguyen.nab.service.customer.exception.ClientRequestException;
 import com.thinhnguyen.nab.service.customer.repository.VoucherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,9 +20,8 @@ public class CustomerService {
     @Autowired
     VoucherRepository voucherRepository;
 
-    public VoucherDto purchaseDataVoucher(String phoneNum, String dataType) {
+    public VoucherDto purchaseDataVoucher(String phoneNum, String dataType) throws ClientRequestException {
         VoucherDto voucherDto = serviceClient.getDataVoucher(dataType);
-        if(voucherDto == null) return null;
         Voucher voucher = new Voucher();
         voucher.setCustomer(phoneNum);
         voucher.setVoucherCode(voucherDto.getVoucherCode());

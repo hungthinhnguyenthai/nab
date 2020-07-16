@@ -34,6 +34,18 @@ public class PrepaidDataControllerTest {
                 .andExpect(status().isOk());
     }
 
+
+    @Test
+    public void evaluates_retrieve_voucher_bad_request() throws Exception {
+        mockMvc.perform(post("/v1/data/{type}/purchase", "A10")
+                .header("Authorization", "Bearer MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCS.A36dSwlaIkrWNntIlMQT58gXnjiPELX6SpYREFoOdwM")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content("{}")
+        )
+                .andExpect(status().isBadRequest());
+    }
+
+
     @Test
     public void evaluates_retrieve_voucher_unauthorized() throws Exception {
         mockMvc.perform(post("/v1/data/{type}/purchase", "D10")

@@ -22,11 +22,17 @@ public class ApplicationExceptionHandler {
         return ErrorDto.builder().code(e.getErrorID()).message(e.getMessage()).build();
     }
 
-    @ExceptionHandler(ResponseException.class)
+    @ExceptionHandler(ServerException.class)
     @ResponseStatus(HttpStatus.SERVICE_UNAVAILABLE)
     @ResponseBody
-    public ErrorDto handleResponseException(ResponseException e) {
-        LOGGER.error("Caught exception", e);
-        return ErrorDto.builder().code("").message(e.getMessage()).build();
+    public ErrorDto handleResponseException(ServerException e) {
+        return ErrorDto.builder().code("TBD").message(e.getMessage()).build();
+    }
+
+    @ExceptionHandler(ClientRequestException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public ErrorDto handleClientRequestException(ClientRequestException e) {
+        return ErrorDto.builder().code("TBD").message(e.getMessage()).build();
     }
 }

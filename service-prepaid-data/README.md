@@ -27,7 +27,7 @@ Folder Structure Conventions
     │   ├── dto             # DTO
     │   ├── rest            # Another HTTP client (retrofit2 - my favorite). Used for calling thirdparty 
     │   ├── exception       # Exception definination - handler
-    │   ├── tools           # Tools - 
+    │   ├── concurrent      # Network problem solution 
     │   └── service         # Business Logic 
     └── ...
     
@@ -37,5 +37,5 @@ To deal with networking scenarios, I came up with an solution
 
 ![workflow](workflow.png)
 
-Because of notification-service is not developed, so I change my approach - calling customer-service for updating delayed voucher, user can retrieve it latter
+Because of notification-service is not developed, so I change my approach - calling customer-service for updating delayed voucher, user can retrieve it later
 

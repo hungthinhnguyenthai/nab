@@ -4,9 +4,9 @@ import lombok.Data;
 
 
 @Data
-public class ResponseException extends RuntimeException {
+public class ClientRequestException extends RuntimeException {
     private Integer status;
-    public ResponseException(Integer status, String message) {
+    public ClientRequestException(Integer status, String message) {
         super(message);
         this.status = status;
     }

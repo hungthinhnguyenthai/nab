@@ -4,7 +4,9 @@ package com.thinhnguyen.nab.service.prepaiddata.service;
 import com.thinhnguyen.nab.service.prepaiddata.client.CustomerServiceClient;
 import com.thinhnguyen.nab.service.prepaiddata.dto.InvoiceDto;
 import com.thinhnguyen.nab.service.prepaiddata.dto.VoucherDto;
+import com.thinhnguyen.nab.service.prepaiddata.exception.RequestException;
 import com.thinhnguyen.nab.service.prepaiddata.exception.ServiceRuntimeException;
+import com.thinhnguyen.nab.service.prepaiddata.rest.NabRetrofitErrorHandler;
 import com.thinhnguyen.nab.service.prepaiddata.rest.TelecomRestClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +16,6 @@ import retrofit2.Call;
 import retrofit2.Response;
 
 import java.io.IOException;
-import java.util.function.Consumer;
 
 
 @Service
@@ -43,31 +44,42 @@ public class PrePaidDataService {
         return null;
     }
 
+
+    /**
+     * 1. Perform http request to third-party.
+     * 2. Handling the response - error
+     * 3. Decrypt the voucher code with private key.
+     * @param type - data package
+     * @return Decrypted Voucher Dto
+     */
     public VoucherDto payData(String type){
         InvoiceDto body = new InvoiceDto();
-        try {
-            VoucherDto response = handleResponse(telecomRestClient.purchaseData(type, body), (error) -> {});
-            response.setVoucherCode(cipherService.decrypt(response.getVoucherCode()));
-            return response;
-        } catch (Exception e) {
-            LOGGER.error("Cannot execute request", e);
-            throw new ServiceRuntimeException("ER010" ,"Cannot execute request");
-        }
+        VoucherDto response = handleResponse(telecomRestClient.purchaseData(type, body), (error) -> {
+            throw new RequestException(error.code(), error.message());
+        });
+        response.setVoucherCode(cipherService.decrypt(response.getVoucherCode()));
+        return response;
     }
 
-    private <T> T handleResponse(Call<T> call, Consumer<Response<T>> errorHandler) {
+    /**
+     * Utils handling retrofit2 call and response.
+     * @param call
+     * @param errorHandler
+     * @param <T>
+     * @return
+     */
+    private <T> T handleResponse(Call<T> call, NabRetrofitErrorHandler<T> errorHandler) {
         try {
             Response<T> response = call.execute();
             if (!response.isSuccessful()) {
-                errorHandler.accept(response);
+                return errorHandler.handle(response);
             } else {
                 return response.body();
             }
         } catch (IOException e) {
             LOGGER.error("Cannot parse the json response", e);
-            throw new ServiceRuntimeException("ER04" ,"Cannot parse the json response");
+            throw new ServiceRuntimeException("ER04" ,"Third-party is not available");
         }
-        throw new ServiceRuntimeException("ER03" ,"Request is unsuccessful");
     }
 
 

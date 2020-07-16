@@ -4,25 +4,25 @@
 You need to install :
 - JDK 8
 - Maven 3.6
-- Mysql Server (TODO) - root/root
+
 
 Architecture
 ============================
 
 ![architecture](architecture.png)
 
-Component
+Components
 ============================
 
     .
     ├── ...
     ├── gateway                 # API gateway - Netflix Zuul
-    ├── service-config          # Cloud configuration
-    ├── service-customer        # Customer service - handling customer process: regiter user, retrieve user information
-    ├── service-discovery       # Service registration - Netflix Eureka
-    ├── service-prepaid-data    # Thirdparty Client
-    ├── telecom                 # Thirdparty  
-    ├── build                   #   
+    ├── service-config          # Cloud configuration - Spring Cloud Config
+    ├── service-customer        # Customer service - handling customer process - JPA,H2
+    ├── service-discovery       # Service registration - Netflix Eureka  
+    ├── service-prepaid-data    # Thirdparty Client - Spring Security - OpenFeign -retrofit2
+    ├── telecom                 # Thirdparty  - Spring Security
+    ├── build                   # Release folder
     └── ...
 
 Workflow
@@ -38,9 +38,7 @@ In /build folder run in order:
      java -jar telecom-0.0.1-SNAPSHOT.jar
      java -jar gateway-0.0.1-SNAPSHOT.jar
 
-Import NAB.postman_collection.json into postman and start testing.
-    
-### What's next
-- Docker
-- Log tracing
-- Circuit breaker
+## Testing
+Import NAB.postman_collection.json into POSTMAN and start testing.
+
+

@@ -17,8 +17,16 @@ public class ApplicationExceptionHandler {
     @ExceptionHandler(ServiceRuntimeException.class)
     @ResponseStatus(HttpStatus.SERVICE_UNAVAILABLE)
     @ResponseBody
-    public ErrorDto handleBOException(ServiceRuntimeException e) {
+    public ErrorDto handleServiceException(ServiceRuntimeException e) {
         LOGGER.error("Caught exception", e);
         return ErrorDto.builder().code(e.getErrorID()).message(e.getMessage()).build();
+    }
+
+    @ExceptionHandler(RequestException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public ErrorDto handleBadRequestException(RequestException e) {
+        LOGGER.error("Caught exception", e);
+        return ErrorDto.builder().code("#TBD").message(e.getMessage()).build();
     }
 }
