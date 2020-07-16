@@ -40,5 +40,5 @@ In /build folder run in order:
 
 ## Testing
 Import NAB.postman_collection.json into POSTMAN and start testing.
-
+At the initial time, we may face a error due to 2 services [Customer and Prepaid] take a little bit of time for registering with discovery server
 
